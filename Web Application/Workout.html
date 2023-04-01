@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>5-3-1 Lift Generator</title>
+    <style>
+        .center {
+            text-align: center;
+        }
+
+        /* Style the pop-up window */
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border-radius: 10px;
+            border: none;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Style the close button */
+        #closeButton {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+        }
+
+        #selectFileButton,
+        #oneRepButton {
+            background-color: #546c86;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #selectFileButton:hover,
+        #oneRepButton:hover {
+            background-color: #546c86cb;
+        }
+
+        body {
+            font-family: SF Pro Text, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input[type=file] {
+            display: block;
+            margin: 0 auto;
+        }
+
+        button {
+            margin: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 10px auto;
+            margin-bottom: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        td,
+        th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f200;
+        }
+
+        tr:hover {
+            background-color: #dddddd00;
+        }
+
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #546c86;
+            color: white;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #333;
+                color: #fff;
+            }
+
+            #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border-radius: 10px;
+            border: none;
+            background-color: #333;
+            box-shadow: 0 0 20px rgba(216, 216, 216, 0.3);
+        }
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: #fff;
+                color: #333;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>5-3-1 Lift Generator</h1>
+    <input type="file" id="fileInput" onchange="loadFile(event)" style="display: none;" />
+    <div class="center">
+        <button id="selectFileButton" onclick="document.getElementById('fileInput').click()">Upload a JSON
+            File...</button>
+        <button id="oneRepButton">Calculate One Rep Max</button>
+
+        <!-- Pop-up window -->
+        <div id="popup">
+            <span id="closeButton">X</span>
+            <label for="weight">Weight lifted:</label>
+            <input type="number" id="weight"><br><br>
+            <label for="reps">Reps performed:</label>
+            <input type="number" id="reps"><br><br>
+            <button id="calculateButton">Calculate</button><br><br>
+            <label>1RM:</label> <span id="oneRepMax"></span>
+        </div>
+    </div>
+    <br />
+    <table id="benchPressTable">
+        <caption>Bench Press</caption>
+        <tr>
+            <th>Week</th>
+            <th>Set 1</th>
+            <th>Set 2</th>
+            <th>Set 3</th>
+        </tr>
+    </table>
+    <table id="squatTable">
+        <caption>Squat</caption>
+        <tr>
+            <th>Week</th>
+            <th>Set 1</th>
+            <th>Set 2</th>
+            <th>Set 3</th>
+        </tr>
+    </table>
+    <table id="deadliftTable">
+        <caption>Deadlift</caption>
+        <tr>
+            <th>Week</th>
+            <th>Set 1</th>
+            <th>Set 2</th>
+            <th>Set 3</th>
+        </tr>
+    </table>
+    <table id="overheadPressTable">
+        <caption>Overhead Press</caption>
+        <tr>
+            <th>Week</th>
+            <th>Set 1</th>
+            <th>Set 2</th>
+            <th>Set 3</th>
+        </tr>
+    </table>
+
+    <script>
+        let data = null;
+
+        function loadFile(event) {
+            let file = event.target.files[0];
+            let reader = new FileReader();
+            reader.onload = function (event) {
+                try {
+                    data = JSON.parse(event.target.result);
+                    updateTables();
+                } catch (e) {
+                    alert("Error: Invalid file format. Please choose a valid JSON file.");
+                }
+            };
+            reader.onerror = function () {
+                alert("Error: Unable to read file. Please try again.");
+            };
+            reader.readAsText(file);
+        }
+
+        function updateTables() {
+            if (data === null) {
+                return;
+            }
+            populateTable("benchPressTable", data.benchPress);
+            populateTable("squatTable", data.squat);
+            populateTable("deadliftTable", data.deadlift);
+            populateTable("overheadPressTable", data.overheadPress);
+        }
+
+        function populateTable(tableId, max) {
+            let table = document.getElementById(tableId);
+            // Clear existing rows
+            while (table.rows.length > 1) {
+                table.deleteRow(1);
+            }
+            let trainingMax = max * 0.9;
+            for (let week = 1; week <= 4; week++) {
+                let row = table.insertRow(-1);
+                let weekCell = row.insertCell(0);
+                weekCell.innerHTML = "Week " + week;
+
+                if (week == 1) {
+                    addSet(row, trainingMax, 0.65, 5);
+                    addSet(row, trainingMax, 0.75, 5);
+                    addSet(row, trainingMax, 0.85, 5);
+                } else if (week == 2) {
+                    addSet(row, trainingMax, 0.7, 3);
+                    addSet(row, trainingMax, 0.8, 3);
+                    addSet(row, trainingMax, 0.9, 3);
+                } else if (week == 3) {
+                    addSet(row, trainingMax, 0.75, 5);
+                    addSet(row, trainingMax, 0.85, 3);
+                    addSet(row, trainingMax, 0.95, 1);
+                } else if (week == 4) {
+                    addSet(row, trainingMax, 0.4, 5);
+                    addSet(row, trainingMax, 0.5, 5);
+                    addSet(row, trainingMax, 0.6, 5);
+                }
+            }
+        }
+
+        function addSet(row, trainingMax, percentageOfTrainingMax, reps) {
+            let setCell = row.insertCell(-1);
+            let weight = roundToNearest5(trainingMax * percentageOfTrainingMax);
+            setCell.innerHTML = `(${percentageOfTrainingMax * 100}%) ${weight} x ${reps}`;
+            let barWeight = 45;
+            let plates = calculatePlates((weight - barWeight) / 2);
+            let tooltipText = plates.map(p => p + " lbs").join(" + ");
+            setCell.title = tooltipText;
+        }
+
+        function calculatePlates(weight) {
+            let plates = [45, 35, 25, 10, 5, 2.5];
+            let result = [];
+            for (let i = 0; i < plates.length; i++) {
+                while (weight >= plates[i]) {
+                    result.push(plates[i]);
+                    weight -= plates[i];
+                }
+            }
+            return result;
+        }
+
+        function roundToNearest5(x) {
+            return Math.round(x / 5) * 5;
+        }
+
+        // Function to calculate one rep max
+        function calculateOneRepMax(weight, reps) {
+            const oneRepMax = weight * (1 + reps / 30);
+
+            // Remove any decimal points
+            return Math.floor(oneRepMax / 5) * 5;
+        }
+
+        // Function to handle button click
+        function onButtonClick() {
+            // Show the pop-up window
+            document.querySelector('#popup').style.display = 'block';
+        }
+
+        // Function to handle calculate button click
+        function onCalculateButtonClick() {
+            // Get user input for weight lifted and reps performed
+            const weight = parseInt(document.querySelector('#weight').value);
+            const reps = parseInt(document.querySelector('#reps').value);
+
+            // Calculate one rep max
+            const oneRepMax = calculateOneRepMax(weight, reps);
+
+            // Display result in text field
+            document.querySelector('#oneRepMax').textContent = oneRepMax;
+        }
+
+        // Function to handle close button click
+        function onCloseButtonClick() {
+            // Hide the pop-up window
+            document.querySelector('#popup').style.display = 'none';
+        }
+
+        // Add event listener to button
+        document.querySelector('#oneRepButton').addEventListener('click', onButtonClick);
+
+        // Add event listener to calculate button
+        document.querySelector('#calculateButton').addEventListener('click', onCalculateButtonClick);
+
+        // Add event listener to close button
+        document.querySelector('#closeButton').addEventListener('click', onCloseButtonClick);
+    </script>
+
+</body>
+
+</html>

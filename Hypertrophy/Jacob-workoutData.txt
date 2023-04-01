@@ -1,0 +1,5 @@
+255 -> Bench
+380 -> Squat
+175 -> Overhead Press
+390 -> Deadlift
+Jacob -> Name

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>One Rep Maxes</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>One Rep Maxes</h1>
+    <input type="file" id="fileInput" onchange="loadFile(event)"/>
+    <br/>
+    <div class="buttons">
+        <button onclick="updateTables(0)">0-25%</button>
+        <button onclick="updateTables(25)">25-50%</button>
+        <button onclick="updateTables(50)">50-75%</button>
+        <button onclick="updateTables(75)">75-100%</button>
+    </div>
+    <br/>
+    <table id="benchPressTable">
+        <caption>Bench Press</caption>
+        <tr>
+            <th>Percentage</th>
+            <th>Weight</th>
+        </tr>
+    </table>
+    <table id="squatTable">
+        <caption>Squat</caption>
+        <tr>
+            <th>Percentage</th>
+            <th>Weight</th>
+        </tr>
+    </table>
+    <table id="deadliftTable">
+        <caption>Deadlift</caption>
+        <tr>
+            <th>Percentage</th>
+            <th>Weight</th>
+        </tr>
+    </table>
+    <table id="overheadPressTable">
+        <caption>Overhead Press</caption>
+        <tr>
+            <th>Percentage</th>
+            <th>Weight</th>
+        </tr>
+    </table>
+
+    <script type="text/javascript" src="script.js"></script>
+
+</body>
+</html>

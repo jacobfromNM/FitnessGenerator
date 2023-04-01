@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>One Rep Maxes</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>One Rep Maxes</h1>
+    <input type="file" id="fileInput" onchange="loadFile(event)" style="display: none;"/>
+    <div class="center">
+        <button id="selectFileButton" onclick="document.getElementById('fileInput').click()">Upload a JSON File...</button>
+        <button id="oneRepButton">Calculate One Rep Max</button>
+
+        <!-- Pop-up window -->
+        <div id="popup">
+          <span id="closeButton">X</span>
+          <label for="weight">Weight lifted:</label>
+          <input type="number" id="weight"><br><br>
+          <label for="reps">Reps performed:</label>
+          <input type="number" id="reps"><br><br>
+          <button id="calculateButton">Calculate</button><br><br>
+          <label>1RM:</label> <span id="oneRepMax"></span>
+        </div>
+    </div>
+    <br/>
+    <table id="benchPressTable">
+        <caption>Bench Press</caption>
+        <tr>
+            <th>Week</th>
+            <th>Set 1</th>
+            <th>Set 2</th>
+            <th>Set 3</th>
+        </tr>
+    </table>
+    <table id="squatTable">
+        <caption>Squat</caption>
+        <tr>
+            <th>Week</th>
+            <th>Set 1</th>
+            <th>Set 2</th>
+            <th>Set 3</th>
+        </tr>
+    </table>
+    <table id="deadliftTable">
+        <caption>Deadlift</caption>
+        <tr>
+            <th>Week</th>
+            <th>Set 1</th>
+            <th>Set 2</th>
+            <th>Set 3</th>
+        </tr>
+    </table>
+    <table id="overheadPressTable">
+        <caption>Overhead Press</caption>
+        <tr>
+            <th>Week</th>
+            <th>Set 1</th>
+            <th>Set 2</th>
+            <th>Set 3</th>
+        </tr>
+    </table>
+
+    <script type="text/javascript" src="script.js"></script>
+
+</body>
+</html>

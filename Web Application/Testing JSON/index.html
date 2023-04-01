@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>One Rep Max Chart</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        text-align: center;
+        background-color: #333;
+        color: white;
+        margin: 0;
+        padding: 1em;
+      }
+      #file-input {
+        display: none;
+      }
+      .file-input-label {
+        display: block;
+        margin: 1em auto;
+        padding: 0.5em 1em;
+        background-color: #333;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+      }
+      table {
+        border-collapse: collapse;
+        margin: 1em auto;
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5em 1em;
+        text-align: center;
+      }
+      th {
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>One Rep Max Chart</h1>
+    <input type="file" id="file-input" />
+    <label for="file-input" class="file-input-label">Select your JSON File</label>
+    <div id="charts"></div>
+
+    <script>
+      // Handle file selection
+      document.getElementById('file-input').addEventListener('change', event => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+          const data = JSON.parse(reader.result);
+          const oneRepMaxes = data.oneRepMaxes;
+          const percentages = [0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1];
+          const chartNames = ['Bench', 'Squat', 'Overhead Press', 'Deadlift'];
+
+          // Generate the weight and percentage charts
+          const charts = document.getElementById('charts');
+          oneRepMaxes.forEach((oneRepMax, index) => {
+            const chart = document.createElement('table');
+            chart.innerHTML = `
+              <caption>${chartNames[index]}</caption>
+              <tr>
+                <th>Percentage</th>
+                <th>Weight</th>
+              </tr>
+            `;
+            percentages.forEach(percentage => {
+              let weight = Math.trunc(oneRepMax * percentage);
+              weight = Math.round(weight / 5) * 5; // Round to nearest multiple of 5
+              const row = chart.insertRow(-1);
+              row.insertCell(0).innerHTML = `${(percentage * 100).toFixed(0)}%`;
+              row.insertCell(1).innerHTML = `${weight} lbs`;
+            });
+            charts.appendChild(chart);
+          });
+        };
+        reader.readAsText(file);
+      });
+    </script>
+  </body>
+</html>

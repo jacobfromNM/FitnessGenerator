@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jim Wendler's 5-3-1 Program Generator</title>
+    <style>
+        * {
+            font-family: SF Pro Text, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            margin-top: 8px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="button"] {
+            display: inline-block;
+            width: calc(50% - 10px);
+            background-color: #59837d;
+            color: rgb(255, 255, 255);
+            padding: 14px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            label {
+                font-size: 16px;
+                margin-top: 10px;
+            }
+
+            input[type="text"] {
+                padding: 6px 10px;
+                margin-top: 4px;
+                font-size: 14px;
+            }
+
+            input[type="button"] {
+                width: calc(100% - 20px);
+                padding: 8px 12px;
+                margin-top: 10px;
+                font-size:14px;
+             }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jim Wendler's 5-3-1 Program Generator</h1>
+        <form> 
+            <label for="benchPress">Bench Press 1RM:</label>
+            <input type="text" id="benchPress"><br>
+            
+            <label for="squat">Squat 1RM:</label>
+            <input type="text" id="squat"><br>
+            
+            <label for="deadlift">Deadlift 1RM:</label>
+            <input type="text" id="deadlift"><br>
+            
+            <label for="overheadPress">Overhead Press 1RM:</label>
+            <input type="text" id="overheadPress"><br>
+
+            <label for="cycle">Week Cycle (1-4)</label>
+            <input type="text" id="cycle"><br>
+            
+            <input type="button" value="Generate Lift Plan" onclick="generateLiftPlan()">
+            <input type="button" value="Reset" onclick="resetForm()"><br>
+        </form>
+        <div id="liftPlan"></div>
+    </div>
+
+    <script>
+        function generateLiftPlan() {
+            var benchPress = parseInt(document.getElementById("benchPress").value);
+            var squat = parseInt(document.getElementById("squat").value);
+            var deadlift = parseInt(document.getElementById("deadlift").value);
+            var overheadPress = parseInt(document.getElementById("overheadPress").value);
+            var cycle = parseInt(document.getElementById("cycle").value);
+
+            if (Number.isInteger(benchPress) && Number.isInteger(squat) && Number.isInteger(deadlift) && Number.isInteger(overheadPress) && Number.isInteger(cycle)) {
+                // Generate lift plan based on Jim Wendler's 5-3-1 program
+                // ...
+                document.getElementById("liftPlan").innerHTML = "Lift plan generated";
+            } else {
+                document.getElementById("liftPlan").innerHTML = "Error: all values must be integers";
+            }
+        }
+
+        function resetForm() {
+          document.getElementById("benchPress").value = "";
+          document.getElementById("squat").value = "";
+          document.getElementById("deadlift").value = "";
+          document.getElementById("overheadPress").value = "";
+          document.getElementById("liftPlan").innerHTML = "";
+          document.getElementById("cycle").value = "";
+      }
+    </script>
+</body>
+</html>

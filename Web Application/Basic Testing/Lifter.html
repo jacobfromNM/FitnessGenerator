@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One Rep Max Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="button"] {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="button"]:hover {
+      background-color: #555;
+    }
+
+    .quote {
+      text-align: center;
+      margin-bottom: 20px;
+      font-style: italic;
+      font-size: 1.2em;
+      color: #555;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        max-width: 100%;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="quote">
+      <p>"The only way to define your limits is by going beyond them."</p>
+      <p>- Arthur C. Clarke</p>
+    </div>
+
+    <h1>One Rep Max Calculator</h1>
+
+    <form>
+      <label for="weight">Weight Lifted:</label>
+      <input type="number" id="weight" name="weight" required><br><br>
+
+      <label for="reps">Number of Reps:</label>
+      <input type="number" id="reps" name="reps" required><br><br>
+
+      <input type="button" value="Calculate" onclick="calculateOneRepMax()">
+
+      <input type="button" value="Reset" onclick="resetForm()">
+    </form>
+
+    <p id="oneRepMax"></p>
+    <p id="percentageTable"></p>
+
+  </div>
+
+  <script>
+    function calculateOneRepMax() {
+        var weight = parseInt(document.getElementById("weight").value);
+        var reps = parseInt(document.getElementById("reps").value);
+
+        if (Number.isInteger(weight) && Number.isInteger(reps)) {
+            var oneRepMax = Math.round(weight * (1 + reps / 30));
+            oneRepMax = Math.round(oneRepMax / 5) * 5;
+            document.getElementById("oneRepMax").innerHTML = "Your estimated one rep max is " + oneRepMax + " pounds.";
+            generatePercentageTable(oneRepMax);
+        } else {
+            document.getElementById("oneRepMax").innerHTML = "Error: weight and reps must be integers";
+        }
+    }
+
+    function generatePercentageTable(oneRepMax) {
+        var table = "<table><tr><th>Percentage</th><th>Weight</th></tr>";
+
+        for (var i = 5; i <= 100; i += 5) {
+            var weight = Math.round(oneRepMax * i / 100);
+            weight = Math.round(weight / 5) * 5;
+            table += "<tr><td>" + i + "%</td><td>" + weight + " pounds</td></tr>";
+        }
+
+        table += "</table>";
+        document.getElementById("percentageTable").innerHTML = table;
+    }
+
+    function resetForm() {
+      document.getElementById("weight").value = "";
+      document.getElementById("reps").value = "";
+      document.getElementById("oneRepMax").innerHTML = "";
+    }
+  </script>
+</body>
+</html>
