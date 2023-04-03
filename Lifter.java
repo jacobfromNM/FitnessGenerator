@@ -145,18 +145,18 @@ public class Lifter {
         for (int i = 0; i < cycleArray.length; i++) {
             finalString += " • " + "(" + String.format("%.0f", cycleArray[i] * 100) + "%) "
                         + cycleStringArray[i] + " "
-                        + String.format("%.0f", 5 * (Math.ceil(Math.abs(oneRepMaxBench * cycleArray[i] / 5))))
+                        + String.format("%.0f", 5 * (Math.floor(Math.abs(oneRepMaxBench * cycleArray[i] / 5))))
                         + "  ->  "
-                        + plates.get(5 * (Math.ceil(Math.abs(oneRepMaxBench * cycleArray[i] / 5)))) + "\n";
+                        + plates.get(5 * (Math.floor(Math.abs(oneRepMaxBench * cycleArray[i] / 5)))) + "\n";
         }
 
         finalString += "\nSquat (1RM: " + oneRepMaxSquat + " -> " + plates.get((double)oneRepMaxSquat) + ")\n";
         for (int i = 0; i < cycleArray.length; i++) {
             finalString += " • " + "(" + String.format("%.0f",cycleArray[i] * 100) + "%) "
                         + cycleStringArray[i] + " "
-                        + String.format("%.0f", 5 * (Math.ceil(Math.abs(oneRepMaxSquat * cycleArray[i] / 5))))
+                        + String.format("%.0f", 5 * (Math.floor(Math.abs(oneRepMaxSquat * cycleArray[i] / 5))))
                         + "  ->  "
-                        + plates.get(5 * (Math.ceil(Math.abs(oneRepMaxSquat * cycleArray[i] / 5)))) + "\n";
+                        + plates.get(5 * (Math.floor(Math.abs(oneRepMaxSquat * cycleArray[i] / 5)))) + "\n";
         }
 
         finalString += "\nDeadlift (1RM: " + oneRepMaxDeadLift + " -> " + plates.get((double)oneRepMaxDeadLift) + ")\n";
@@ -164,9 +164,9 @@ public class Lifter {
             finalString += " • " + "("
                         + String.format("%.0f", cycleArray[i] * 100) + "%) "
                         + cycleStringArray[i] + " "
-                        + String.format("%.0f", 5 * (Math.ceil(Math.abs(oneRepMaxDeadLift * cycleArray[i] / 5))))
+                        + String.format("%.0f", 5 * (Math.floor(Math.abs(oneRepMaxDeadLift * cycleArray[i] / 5))))
                         + "  -> "
-                        +  plates.get(5 * (Math.ceil(Math.abs(oneRepMaxDeadLift * cycleArray[i] / 5)))) + "\n";
+                        +  plates.get(5 * (Math.floor(Math.abs(oneRepMaxDeadLift * cycleArray[i] / 5)))) + "\n";
         }
 
         finalString += "\nOverhead Press (1RM: " + oneRepMaxPress +  " -> " + plates.get((double)oneRepMaxPress) + ")\n";
@@ -174,9 +174,9 @@ public class Lifter {
             finalString += " • " + "("
                         + String.format("%.0f", cycleArray[i] * 100) + "%) "
                         + cycleStringArray[i] + " "
-                        + String.format("%.0f", 5 * (Math.ceil(Math.abs(oneRepMaxPress * cycleArray[i] / 5))))
+                        + String.format("%.0f", 5 * (Math.floor(Math.abs(oneRepMaxPress * cycleArray[i] / 5))))
                         + "  ->  "
-                        + plates.get(5 * (Math.ceil(Math.abs(oneRepMaxPress * cycleArray[i] / 5)))) + "\n";
+                        + plates.get(5 * (Math.floor(Math.abs(oneRepMaxPress * cycleArray[i] / 5)))) + "\n";
         }
 
         return finalString;
