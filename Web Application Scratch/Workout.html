@@ -4,7 +4,7 @@
 <head>
     <title>5-3-1 Lift Generator</title>
     <style>
-        .center {
+        .center, .timer {
             text-align: center;
         }
 
@@ -31,7 +31,7 @@
         }
 
         #selectFileButton,
-        #oneRepButton {
+        #oneRepButton, .start, .stop {
             background-color: #546c86;
             color: white;
             padding: 12px 20px;
@@ -43,6 +43,16 @@
         #selectFileButton:hover,
         #oneRepButton:hover {
             background-color: #546c86cb;
+        }
+
+        #timer {
+            font-size: larger;
+            font-weight: bolder;
+        }
+
+        caption {
+            padding-bottom: 5px;
+            font-weight: bold;
         }
 
         body {
@@ -66,11 +76,11 @@
             border-collapse: collapse;
             margin: 10px auto;
             margin-bottom: 20px;
+            font-size: 12px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
 
-        td,
-        th {
+        td, th {
             border: 1px solid #ddd;
             padding: 8px;
         }
@@ -79,36 +89,56 @@
             background-color: #f2f2f200;
         }
 
+        form {
+            background-color: #ffffff;
+            margin-left: 20%;
+            margin-right: 20%;
+            margin-top: 30px;
+            padding: 2%;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
         tr:hover {
             background-color: #dddddd00;
         }
 
         th {
+            text-align: center;
             padding-top: 12px;
             padding-bottom: 12px;
-            text-align: left;
             background-color: #546c86;
             color: white;
         }
 
         @media (prefers-color-scheme: dark) {
-            body {
+            body{
                 background-color: #333;
                 color: #fff;
             }
 
-            #popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            border-radius: 10px;
-            border: none;
+            form {
             background-color: #333;
-            box-shadow: 0 0 20px rgba(216, 216, 216, 0.3);
-        }
+            color: #fff;
+            margin-left: 10%;
+            margin-right: 10%;
+            padding: 2%;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(233, 233, 233, 0.3);
+            }
+
+            #popup {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 20px;
+                border-radius: 10px;
+                border: none;
+                background-color: #333;
+                box-shadow: 0 0 20px rgba(216, 216, 216, 0.3);
+            }
         }
 
         @media (prefers-color-scheme: light) {
@@ -139,46 +169,103 @@
             <label>1RM:</label> <span id="oneRepMax"></span>
         </div>
     </div>
+
+    <form>
+    <div class="timer">
+        <p id="timer"></p>
+
+        <button class="start" onclick="startTimer(180)">3 minutes</button>
+        <button class="start" onclick="startTimer(150)">2.5 minutes</button>
+        <button class="start" onclick="startTimer(120)">2 minutes</button>
+        <button class="start" onclick="startTimer(90)">1.5 minutes</button>
+        <button class="stop" onclick="stopTimer()">Stop</button>
+        
+        <audio id="alarm" src="alarm.wav"></audio>
+    </div>
+</form>
     <br />
-    <table id="benchPressTable">
-        <caption>Bench Press</caption>
-        <tr>
-            <th>Week</th>
-            <th>Set 1</th>
-            <th>Set 2</th>
-            <th>Set 3</th>
-        </tr>
-    </table>
-    <table id="squatTable">
-        <caption>Squat</caption>
-        <tr>
-            <th>Week</th>
-            <th>Set 1</th>
-            <th>Set 2</th>
-            <th>Set 3</th>
-        </tr>
-    </table>
-    <table id="deadliftTable">
-        <caption>Deadlift</caption>
-        <tr>
-            <th>Week</th>
-            <th>Set 1</th>
-            <th>Set 2</th>
-            <th>Set 3</th>
-        </tr>
-    </table>
-    <table id="overheadPressTable">
-        <caption>Overhead Press</caption>
-        <tr>
-            <th>Week</th>
-            <th>Set 1</th>
-            <th>Set 2</th>
-            <th>Set 3</th>
-        </tr>
-    </table>
+
+    <form>
+        <table id="benchPressTable">
+            <caption>Bench Press</caption>
+            <tr>
+                <th>Week</th>
+                <th>Set 1</th>
+                <th>Set 2</th>
+                <th>Set 3</th>
+                <th>Set 4</th>
+                <th>Set 5</th>
+                <th>Set 6</th>
+            </tr>
+        </table>
+        <table id="squatTable">
+            <caption>Squat</caption>
+            <tr>
+                <th>Week</th>
+                <th>Set 1</th>
+                <th>Set 2</th>
+                <th>Set 3</th>
+                <th>Set 4</th>
+                <th>Set 5</th>
+                <th>Set 6</th>
+            </tr>
+        </table>
+        <table id="deadliftTable">
+            <caption>Deadlift</caption>
+            <tr>
+                <th>Week</th>
+                <th>Set 1</th>
+                <th>Set 2</th>
+                <th>Set 3</th>
+                <th>Set 4</th>
+                <th>Set 5</th>
+                <th>Set 6</th>
+            </tr>
+        </table>
+        <table id="overheadPressTable">
+            <caption>Overhead Press</caption>
+            <tr>
+                <th>Week</th>
+                <th>Set 1</th>
+                <th>Set 2</th>
+                <th>Set 3</th>
+                <th>Set 4</th>
+                <th>Set 5</th>
+                <th>Set 6</th>
+            </tr>
+        </table>
+    </form>
 
     <script>
         let data = null;
+        let timeLeft = 0;
+        let timer;
+
+        function startTimer(duration) {
+            clearInterval(timer);
+            timeLeft = duration;
+            timer = setInterval(updateTimer, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+            timeLeft = 0;
+            document.getElementById("timer").innerHTML = "";
+            document.getElementById("alarm").pause();
+        }
+
+        function updateTimer() {
+            if (timeLeft > 0) {
+                timeLeft--;
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                document.getElementById("timer").innerHTML = `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+            } else {
+                clearInterval(timer);
+                document.getElementById("timer").innerHTML = "Time's up!";
+                document.getElementById("alarm").play();
+            }
+        }
 
         function loadFile(event) {
             let file = event.target.files[0];
@@ -213,28 +300,37 @@
             while (table.rows.length > 1) {
                 table.deleteRow(1);
             }
-            let trainingMax = max * 0.9;
+
             for (let week = 1; week <= 4; week++) {
                 let row = table.insertRow(-1);
                 let weekCell = row.insertCell(0);
                 weekCell.innerHTML = "Week " + week;
 
                 if (week == 1) {
-                    addSet(row, trainingMax, 0.65, 5);
-                    addSet(row, trainingMax, 0.75, 5);
-                    addSet(row, trainingMax, 0.85, 5);
+                    addSet(row, max, 0.35, 5);
+                    addSet(row, max, 0.45, 5);
+                    addSet(row, max, 0.55, 3);
+                    addSet(row, max, 0.65, 5);
+                    addSet(row, max, 0.75, 5);
+                    addSet(row, max, 0.85, 5);
                 } else if (week == 2) {
-                    addSet(row, trainingMax, 0.7, 3);
-                    addSet(row, trainingMax, 0.8, 3);
-                    addSet(row, trainingMax, 0.9, 3);
+                    addSet(row, max, 0.35, 5);
+                    addSet(row, max, 0.45, 5);
+                    addSet(row, max, 0.55, 3);
+                    addSet(row, max, 0.7, 3);
+                    addSet(row, max, 0.8, 3);
+                    addSet(row, max, 0.9, 3);
                 } else if (week == 3) {
-                    addSet(row, trainingMax, 0.75, 5);
-                    addSet(row, trainingMax, 0.85, 3);
-                    addSet(row, trainingMax, 0.95, 1);
+                    addSet(row, max, 0.35, 5);
+                    addSet(row, max, 0.45, 5);
+                    addSet(row, max, 0.55, 3);
+                    addSet(row, max, 0.75, 5);
+                    addSet(row, max, 0.85, 3);
+                    addSet(row, max, 0.95, 1);
                 } else if (week == 4) {
-                    addSet(row, trainingMax, 0.4, 5);
-                    addSet(row, trainingMax, 0.5, 5);
-                    addSet(row, trainingMax, 0.6, 5);
+                    addSet(row, max, 0.4, 10);
+                    addSet(row, max, 0.5, 10);
+                    addSet(row, max, 0.6, 10);
                 }
             }
         }
@@ -242,7 +338,7 @@
         function addSet(row, trainingMax, percentageOfTrainingMax, reps) {
             let setCell = row.insertCell(-1);
             let weight = roundToNearest5(trainingMax * percentageOfTrainingMax);
-            setCell.innerHTML = `(${percentageOfTrainingMax * 100}%) ${weight} x ${reps}`;
+            setCell.innerHTML = `(${Math.trunc(percentageOfTrainingMax * 100)}%) ${weight} x ${reps}`;
             let barWeight = 45;
             let plates = calculatePlates((weight - barWeight) / 2);
             let tooltipText = plates.map(p => p + " lbs").join(" + ");
@@ -279,7 +375,7 @@
             document.querySelector('#popup').style.display = 'block';
         }
 
-        // Function to handle calculate button click
+        // Function to handle calculate "Calculate One Rep Max" button click
         function onCalculateButtonClick() {
             // Get user input for weight lifted and reps performed
             const weight = parseInt(document.querySelector('#weight').value);

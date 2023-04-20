@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-family: Arial, sans-serif;
+}
+#timer {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+button {
+  font-size: 24px;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  opacity: 0.8;
+}
+button.start {
+  background-color: #4CAF50;
+  color: white;
+}
+button.stop {
+  background-color: #f44336;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<p id="timer"></p>
+
+<button class="start" onclick="startTimer(180)">3 minutes</button>
+<button class="start" onclick="startTimer(150)">2.5 minutes</button>
+<button class="start" onclick="startTimer(120)">2 minutes</button>
+<button class="stop" onclick="stopTimer()">Stop</button>
+
+<audio id="alarm" src="alarm.mp3"></audio>
+
+<script>
+let timeLeft = 0;
+let timer;
+
+function startTimer(duration) {
+  clearInterval(timer);
+  timeLeft = duration;
+  timer = setInterval(updateTimer, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timer);
+  timeLeft = 0;
+  document.getElementById("timer").innerHTML = "";
+}
+
+function updateTimer() {
+  if (timeLeft > 0) {
+    timeLeft--;
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    document.getElementById("timer").innerHTML = `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+  } else {
+    clearInterval(timer);
+    document.getElementById("timer").innerHTML = "Time's up!";
+    document.getElementById("alarm").play();
+  }
+}
+</script>
+
+</body>
+</html>

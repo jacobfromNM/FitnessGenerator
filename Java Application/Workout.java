@@ -140,7 +140,7 @@ public class Workout {
     private static void calculateOneRepMax() {
         int weight = 0;
         int reps = 0;
-        int userInput = 0;
+        // int userInput = 0;
         double oneRM = 0;
         DecimalFormat df = new DecimalFormat("#.##");
 
@@ -156,13 +156,12 @@ public class Workout {
     }
 
     private static void generateLiftCharts(String path, Lifter lifter) {
-        String weekDay = "";
         int cycle = 0;
 
-        System.out.println("What cycle are you on (1 2 3 4)?");
+        System.out.println("What cycle are you on?");
         cycle = input.nextInt();
+        
         lifter.setCycle(cycle);
-
         System.out.println(lifter.getLifts());
     }
 

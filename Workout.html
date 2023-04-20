@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="author" content="Jacob Davis">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>5-3-1 Lift Generator</title>
+
+        <!-- META bullshit - The top 4 are mandatory. -->
+        <meta property="og:title" content="5-3-1 Lift Generator">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="/resources/image.jpg">
+        <meta property="og:url" content="https://531.com">
+        <meta property="og:description" content="A website that calculates lift charts based on the 5-3-1 plan by Jim Wendler">
+        <meta property="og:locale" content="en_US">
+        <meta property="og:site_name" content="5-3-1 Calculator">
+
+        <!-- Stylesheet -->
+        <link rel="stylesheet" href="styles/styles.css">
+
+        <style> 
+            html {
+                background: url(resources/image.jpg) no-repeat center center fixed; 
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+        </style>
+    </head>
+
+    <body>
+        
+        <h1>5-3-1 Lift Generator</h1>
+
+        <nav>
+            <!-- If needed, navigation links will go here... -->
+        </nav>
+
+        <input type="file" id="fileInput" onchange="loadFile(event)" style="display: none;" />
+        <div class="jsonButton">
+            <button id="selectFileButton" onclick="document.getElementById('fileInput').click()">Upload a JSON File...</button>
+        </div>
+
+        <div class="pageContainer">
+            <p id="timer">0:00</p>
+            <button class="start" onclick="startTimer(180)">3 minutes</button>
+            <button class="start" onclick="startTimer(150)">2.5 minutes</button>
+            <button class="start" onclick="startTimer(120)">2 minutes</button>
+            <button class="start" onclick="startTimer(90)">1.5 minutes</button>
+            <button class="stop" onclick="stopTimer()">Stop</button>
+            <audio id="alarm" src="resources/alarm.wav"></audio>
+        </div>
+
+        <div class = "pageContainer">
+            <table id="benchPressTable">
+                <caption>Bench Press</caption>
+                <tr>
+                    <th>Week</th>
+                    <th>Set 1</th>
+                    <th>Set 2</th>
+                    <th>Set 3</th>
+                    <th>Set 4</th>
+                    <th>Set 5</th>
+                    <th>Set 6</th>
+                    <th>Set 7-12</th>
+                </tr>
+            </table>
+            <table id="squatTable">
+                <caption>Squat</caption>
+                <tr>
+                    <th>Week</th>
+                    <th>Set 1</th>
+                    <th>Set 2</th>
+                    <th>Set 3</th>
+                    <th>Set 4</th>
+                    <th>Set 5</th>
+                    <th>Set 6</th>
+                    <th>Set 7-12</th>
+                </tr>
+            </table>
+            <table id="deadliftTable">
+                <caption>Deadlift</caption>
+                <tr>
+                    <th>Week</th>
+                    <th>Set 1</th>
+                    <th>Set 2</th>
+                    <th>Set 3</th>
+                    <th>Set 4</th>
+                    <th>Set 5</th>
+                    <th>Set 6</th>
+                    <th>Set 7-12</th>
+                </tr>
+            </table>
+            <table id="overheadPressTable">
+                <caption>Overhead Press</caption>
+                <tr>
+                    <th>Week</th>
+                    <th>Set 1</th>
+                    <th>Set 2</th>
+                    <th>Set 3</th>
+                    <th>Set 4</th>
+                    <th>Set 5</th>
+                    <th>Set 6</th>
+                    <th>Set 7-12</th>
+                </tr>
+            </table>
+        </div>
+        
+        <form class="pageContainer">
+            <!-- The 'required' and 'maxlength' properties would be applied to a form. -->
+            <input type="number" placeholder="Weight Lifted" id="weight" required maxlength="3"><br><br>
+            <input type="number" placeholder= "Reps Performed" id="reps" required maxlength="2"><br><br>
+            <label>1RM:</label> 
+            <label id="oneRepMaxFinal"></label><br><br>
+            <button type="button" id="oneRepMaxButton" onclick="onCalculateButtonClick()">Calculate 1RM</button><br>
+        </form>
+        </br>
+
+        <footer id = "copyright">
+                <small>&copy; Copyright Jacob Davis (2023) - Based on<a href=https://www.jimwendler.com/blogs/jimwendler-com/101065094-5-3-1-for-a-beginner>Jim Wendler's 5-3-1 Beginner Template.</a></small> 
+        </footer> 
+
+        <!-- JavaScript Src... -->
+        <script src="scripts/scripts.js"></script>
+    </body>
+</html>
